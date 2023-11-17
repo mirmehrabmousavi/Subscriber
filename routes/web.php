@@ -19,6 +19,9 @@ Route::get('/', function () {
     return view('user.welcome');
 })->name('index');
 
+Route::post('/saveDataToMySQL2', [\App\Http\Controllers\HomeController::class, 'saveDataToMySQL2'])->name('saveDataToMySQL2');
+Route::post('/saveDataToMySQL3', [\App\Http\Controllers\HomeController::class, 'saveDataToMySQL3'])->name('saveDataToMySQL3');
+
 Route::get('/plans', [\App\Http\Controllers\Subscriptions\PlanController::class, 'plans'])->name('plans');
 Route::get('/plan/purchase', [\App\Http\Controllers\Subscriptions\PlanController::class, 'purchasePlan'])->name('plan.purchase');
 Route::get('/plan/{plan}/purchase/result', [\App\Http\Controllers\Subscriptions\PlanController::class, 'purchasePlanResult'])->name('plan.purchase.result');
@@ -34,7 +37,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     Route::resource('plans', \App\Http\Controllers\Admin\PlanController::class);
     Route::delete('/destroy/all', [\App\Http\Controllers\Admin\PlanController::class, 'destroyAll'])->name('plans.destroyAll');
     //Transactions
-    Route::get('/transactions', [\App\Http\Controllers\Admin\TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transactions', [\App\Http\Controllers\Admin\TransactionController::class, 'index'])->name('transactions.index');
     //Settings
     Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
         Route::get('/', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('index');

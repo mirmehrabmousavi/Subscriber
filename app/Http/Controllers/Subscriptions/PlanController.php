@@ -326,12 +326,8 @@ class PlanController extends Controller
                 ]);
             }
 
-
-             return view('user.payment.result')->with([
-                'status' => 1,
-                'reference_id' => $receipt->getReferenceId(),
-                'plan' => $plan,
-             ]);
+            $reference_id = $receipt->getReferenceId();
+             return view('user.payment.result', compact('plan', 'reference_id'));
 
 
         }catch (Exception|InvalidPaymentException $exception) {

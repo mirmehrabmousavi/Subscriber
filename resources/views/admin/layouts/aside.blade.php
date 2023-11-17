@@ -61,6 +61,13 @@
                         </li>
                     </ul>
                 </li>
+            </ul>
+            <li class="{{Route::is('admin.transactions.index')? 'active' : ''}} nav-item">
+                <a href="{{route('admin.transactions.index')}}">
+                    <i class="feather icon-dollar-sign"></i>
+                    <span class="menu-item">تراکنش ها</span>
+                </a>
+            </li>
             <li class="{{Route::is('admin.settings.index')? 'active' : ''}} nav-item">
                 <a href="{{route('admin.settings.index')}}">
                     <i class="feather icon-settings"></i>

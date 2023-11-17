@@ -20,7 +20,7 @@
                                 <li>{{$value->description}}</li>
                             </ul>
                             @if(auth()->check() && auth()->user()->plan_id == $value->id)
-                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-block btn-outline-primary">Current PLan</a>
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-block btn-outline-primary disabled">Current PLan</a>
                             @elseif(auth()->check() && !empty(auth()->user()->plan_id))
                                 <a href="{{route('plan.purchase', 'type='.$value->type.'&plan='.$value->title)}}" class="btn btn-sm btn-block btn-outline-primary">{{($value->title == 'Free')? 'FREE' : 'Upgrade Plan'}}</a>
                             @else
@@ -50,7 +50,7 @@
                                 <li>{{$value->description}}</li>
                             </ul>
                             @if(auth()->check() && auth()->user()->plan_id == $value->id)
-                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-block btn-outline-primary">Current PLan</a>
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-block btn-outline-primary disabled">Current PLan</a>
                             @elseif(auth()->check() && !empty(auth()->user()->plan_id))
                                 <a href="{{route('plan.purchase', 'type='.$value->type.'&plan='.$value->title)}}" class="btn btn-sm btn-block btn-outline-primary">Upgrade Plan</a>
                             @else
