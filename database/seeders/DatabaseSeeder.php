@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Plan;
+use App\Models\Site;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -36,6 +37,22 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($users as $user) {
             User::create($user);
+        }
+
+        $sites = [
+            [
+                'title' => str_replace(' ', '', 'Mehrab Mousavi'),
+                'url' => 'https://mehrabmousavi.ir',
+                'user_id' => 1,
+            ],
+            [
+                'title' => str_replace(' ', '', 'Mehrab Mousavi'),
+                'url' => 'https://mehrabmousavi.ir',
+                'user_id' => 2,
+            ],
+        ];
+        foreach ($sites as $site) {
+            Site::create($site);
         }
 
         $plans = [

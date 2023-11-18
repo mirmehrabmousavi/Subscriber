@@ -30,7 +30,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected function redirectTo()
+    {
+        return route('dashboard', auth()->user()->site->title);
+    }
 
     /**
      * Create a new controller instance.
@@ -72,7 +75,7 @@ class RegisterController extends Controller
         ]);
 
         $site = Site::create([
-           'title' => $data['title'],
+           'title' => str_replace(' ', '', $data['title']),
            'url' => $data['url'],
            'user_id' => $user->id,
         ]);

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ecommerce\PProduct;
-use App\Models\Ecommerce\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

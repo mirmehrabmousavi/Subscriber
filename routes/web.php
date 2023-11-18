@@ -25,13 +25,8 @@ Route::get('/plan/{plan}/purchase/result', [\App\Http\Controllers\Subscriptions\
 
 Auth::routes();
 
-Route::group(['prefix' => '{site}', 'middleware' => ['auth', Subscriber::class]], function () {
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-    Route::group(['as' => 'company.'], function () {
-        //Category
-        Route::resource('categories', \App\Http\Controllers\User\Company\CategoryController::class);
-        Route::post('/categories/save-nested-categories', [\App\Http\Controllers\User\Company\CategoryController::class, 'saveNestedCategories'])->name('categories.saveNestedCategories');
-    });
+Route::group(['prefix' => '/user/{site}', 'middleware' => ['auth', 'subscriber']], function () {
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {

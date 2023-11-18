@@ -27,7 +27,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected function redirectTo()
+    {
+        return route('dashboard', auth()->user()->site->title);
+    }
 
     /**
      * Create a new controller instance.
@@ -39,10 +43,27 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /*protected function authenticated(Request $request, $user)
+    public function username()
     {
-        if ($request->session()->has('previous_url')) {
-            return redirect($request->session()->get('previous_url'));
+        $login = request()->input('username');
+        if(is_numeric($login)){
+            $field = 'phone';
+        } elseif (filter_var($login, FILTER_VALIDATE_EMAIL)) {
+            $field = 'email';
+        } else {
+            $field = 'username';
         }
-    }*/
+        request()->merge([$field => $login]);
+        return $field;
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->admin == 1) {
+            $path = route('admin.dashboard');
+        }else{
+            $path = route('dashboard', auth()->user()->site->title);
+        }
+        return redirect($path)->with('success', 'به پنل کاربری خود خوش آمدید');
+    }
 }

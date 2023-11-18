@@ -87,11 +87,12 @@ class PlanController extends Controller
         switch ($selectedPlan) {
             case 'Free':
                 if ($user && $selectedType == 'Monthly') {
+                    createDatabase('localhost', \auth()->user()->site->title.'21', 'root', '');
                     $user->update([
                         'plan_id' => $plan->id,
                         'subscribe' => now()->addWeek()->format('Y-m-d')
                     ]);
-                    return redirect(route('dashboard'))->with('success', 'You are Free Trial User');
+                    return redirect(route('dashboard', \auth()->user()->site->title))->with('success', 'You are Free Trial User');
                 }else {
                     return redirect(route('login'));
                 }
@@ -100,7 +101,7 @@ class PlanController extends Controller
             case 'Plus':
                 if ($user && $selectedType == 'Monthly') {
                     if ($plan->isPurchased()) {
-                        return redirect(route('dashboard'));
+                        return redirect(route('dashboard', \auth()->user()->site->title));
                     }
                     $invoice = (new Invoice)->amount($plan->price);
                     try {
@@ -128,7 +129,7 @@ class PlanController extends Controller
                     }
                 }elseif ($user && $selectedType == 'Yearly') {
                     if ($plan->isPurchased()) {
-                        return redirect(route('dashboard'));
+                        return redirect(route('dashboard', \auth()->user()->site->title));
                     }
                     $invoice = (new Invoice)->amount($plan->price);
                     try {
@@ -161,7 +162,7 @@ class PlanController extends Controller
             case 'Pro':
                 if ($user && $selectedType == 'Monthly') {
                     if ($plan->isPurchased()) {
-                        return redirect(route('dashboard'));
+                        return redirect(route('dashboard', \auth()->user()->site->title));
                     }
                     $invoice = (new Invoice)->amount($plan->price);
                     try {
@@ -189,7 +190,7 @@ class PlanController extends Controller
                     }
                 }elseif ($user && $selectedType == 'Yearly') {
                     if ($plan->isPurchased()) {
-                        return redirect(route('dashboard'));
+                        return redirect(route('dashboard', \auth()->user()->site->title));
                     }
                     $invoice = (new Invoice)->amount($plan->price);
                     try {
@@ -222,7 +223,7 @@ class PlanController extends Controller
             case 'Pro Max':
                 if ($user && $selectedType == 'Monthly') {
                     if ($plan->isPurchased()) {
-                        return redirect(route('dashboard'));
+                        return redirect(route('dashboard', \auth()->user()->site->title));
                     }
                     $invoice = (new Invoice)->amount($plan->price);
                     try {
@@ -250,7 +251,7 @@ class PlanController extends Controller
                     }
                 }elseif ($user && $selectedType == 'Yearly') {
                     if ($plan->isPurchased()) {
-                        return redirect(route('dashboard'));
+                        return redirect(route('dashboard', \auth()->user()->site->title));
                     }
                     $invoice = (new Invoice)->amount($plan->price);
                     try {

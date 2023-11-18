@@ -50,11 +50,7 @@
 @if(auth()->check())
 @include('user.layouts.header')
 
-@if(auth()->user()->plan_id == 2 || auth()->user()->plan_id == 1)
-    @include('user.layouts.company-aside')
-@else
-    @include('user.layouts.aside')
-@endif
+@include('user.layouts.aside')
 
 @endif
 <!-- BEGIN: Content-->
@@ -75,7 +71,7 @@
 <div class="sidenav-overlay"></div>
 <div class="drag-target"></div>
 
-@include('admin.layouts.footer')
+@include('user.layouts.footer')
 
 <script src="{{asset('js/jquery-3.6.1.min.js')}}"></script>
 <!-- BEGIN: Vendor JS-->

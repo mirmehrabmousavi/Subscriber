@@ -63,7 +63,7 @@ return [
             ]) : [],
         ],
 
-        'mysql2' => [
+        /*'mysql2' => [
             'driver' => env('DB_CONNECTION_SECOND'),
             'host' => env('DB_HOST_SECOND', '127.0.0.1'),
             'port' => env('DB_PORT_SECOND', '3306'),
@@ -93,7 +93,7 @@ return [
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
-        ],
+        ],*/
 
         'pgsql' => [
             'driver' => 'pgsql',
