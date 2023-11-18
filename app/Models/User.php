@@ -46,6 +46,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function site()
+    {
+        return $this->hasOne(Site::class);
+    }
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'user_id');

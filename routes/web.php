@@ -19,17 +19,19 @@ Route::get('/', function () {
     return view('user.welcome');
 })->name('index');
 
-Route::post('/saveDataToMySQL2', [\App\Http\Controllers\HomeController::class, 'saveDataToMySQL2'])->name('saveDataToMySQL2');
-Route::post('/saveDataToMySQL3', [\App\Http\Controllers\HomeController::class, 'saveDataToMySQL3'])->name('saveDataToMySQL3');
-
 Route::get('/plans', [\App\Http\Controllers\Subscriptions\PlanController::class, 'plans'])->name('plans');
 Route::get('/plan/purchase', [\App\Http\Controllers\Subscriptions\PlanController::class, 'purchasePlan'])->name('plan.purchase');
 Route::get('/plan/{plan}/purchase/result', [\App\Http\Controllers\Subscriptions\PlanController::class, 'purchasePlanResult'])->name('plan.purchase.result');
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth', Subscriber::class]], function () {
+Route::group(['prefix' => '{site}', 'middleware' => ['auth', Subscriber::class]], function () {
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::group(['as' => 'company.'], function () {
+        //Category
+        Route::resource('categories', \App\Http\Controllers\User\Company\CategoryController::class);
+        Route::post('/categories/save-nested-categories', [\App\Http\Controllers\User\Company\CategoryController::class, 'saveNestedCategories'])->name('categories.saveNestedCategories');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'admin']], function () {
@@ -39,7 +41,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'a
     //Transactions
     Route::get('/transactions', [\App\Http\Controllers\Admin\TransactionController::class, 'index'])->name('transactions.index');
     //Settings
-    Route::group(['as' => 'settings.', 'prefix' => 'settings'], function () {
+    Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
         Route::get('/', [\App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('index');
         Route::post('/site', [\App\Http\Controllers\Admin\SettingsController::class, 'siteUpdate'])->name('siteUpdate');
         Route::post('/seo', [\App\Http\Controllers\Admin\SettingsController::class, 'seoUpdate'])->name('seoUpdate');

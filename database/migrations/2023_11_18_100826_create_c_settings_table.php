@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('mysql2')->create('products', function (Blueprint $table) {
+        Schema::connection('mysql2')->create('c_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->text('key');
+            $table->text('value');
+            $table->unsignedInteger('site_id');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('c_settings');
     }
 };

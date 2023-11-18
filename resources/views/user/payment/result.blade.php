@@ -1,8 +1,8 @@
-@extends('admin.layouts.app')
+@extends('user.layouts.app')
 
 @section('content')
     @if($payment->status == \App\Models\Transaction::STATUS_SUCCESS)
-    <p class="alert alert-success border-success">پلن با موفقیت برای شما فعال شد و تا تاریخ {{auth()->user()->subscribe}} فعال خواهد بود.</p>
+        <p class="alert alert-success border-success">پلن با موفقیت برای شما فعال شد و تا تاریخ {{auth()->user()->subscribe}} فعال خواهد بود.</p>
     @elseif($payment->status == \App\Models\Transaction::STATUS_FAILED)
         <p class="alert alert-danger border-warning">پرداخت ناموفق بود</p>
     @endif

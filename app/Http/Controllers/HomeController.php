@@ -27,32 +27,4 @@ class HomeController extends Controller
     {
         return view('user.home');
     }
-
-    public function saveDataToMySQL2(Request $request)
-    {
-        $request->validate([
-            'title' => 'required'
-        ]);
-
-        $product = new Product();
-        $product->setConnection('mysql2');
-        $product->title = $request->title;
-        $product->save();
-
-        return redirect(route('dashboard'))->with('success', 'stored');
-    }
-
-    public function saveDataToMySQL3(Request $request)
-    {
-        $request->validate([
-            'title' => 'required'
-        ]);
-
-        $product = new PProduct();
-        $product->setConnection('mysql3');
-        $product->title = $request->title;
-        $product->save();
-
-        return redirect(route('dashboard'))->with('success', 'stored');
-    }
 }
