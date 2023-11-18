@@ -327,7 +327,8 @@ class PlanController extends Controller
             }
 
             $reference_id = $receipt->getReferenceId();
-             return view('user.payment.result', compact('plan', 'reference_id'));
+            $payment = \App\Models\Transaction::where('payment_id', request()->payment_id)->first();
+             return view('user.payment.result', compact('plan', 'reference_id', 'payment'));
 
 
         }catch (Exception|InvalidPaymentException $exception) {
