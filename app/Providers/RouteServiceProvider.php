@@ -29,6 +29,9 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
+            Route::domain("https://".'{subdomain}.'.str_replace("https://", "", env('APP_URL')))
+                ->group(base_path('routes/subdomain.php'));
+
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
